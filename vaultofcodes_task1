@@ -1,0 +1,220 @@
+Objective: To identify and fix errors in a Python program that manipulates strings.
+
+
+Code 1:
+def reverse_string(s):
+    reversed = ""
+    for i in range(len(s) - 1, -1, -1):
+        reversed += s[i]
+    return reversed
+
+def main():
+    input_string = "Hello, world!"
+    reversed_string = reverse_string(input_string)
+    print(f"Reversed string: {reversed_string}")
+
+if __name__ == "__main__":
+    main()
+
+
+Corrected Code:
+The code you provided is already error-free, and it should work as expected. However, there is one improvement you can make by using Python's slice notation to reverse the string more concisely. Here's the modified code:
+"""
+def reverse_string(s):
+    return s[::-1]
+
+def main():
+    input_string = "Hello, world!"
+    reversed_string = reverse_string(input_string)
+    print(f"Reversed string: {reversed_string}")
+
+if __name__ == "__main__":
+    main()
+
+
+
+Code2:
+Objective: To identify and fix errors in a Python program that validates user input.
+
+def get_age():
+    age = input("Please enter your age: ")
+    if age.isnumeric() and age >= 18:
+        return int(age)
+    else:
+        return None
+
+def main():
+    age = get_age()
+    if age:
+        print(f"You are {age} years old and eligible.")
+    else:
+        print("Invalid input. You must be at least 18 years old.")
+
+if __name__ == "__main__":
+    main()
+
+
+Corrected Code:
+The code you provided is almost correct, but there's a minor issue with the comparison between the `age` variable (a string) and the integer `18`. You need to convert `age` to an integer before making the comparison. Here's the corrected code:
+"""
+def get_age():
+    age = input("Please enter your age: ")
+    if age.isnumeric() and int(age) >= 18:    # Convert age to int for comparison
+        return int(age)
+    else:
+        return None
+def main():
+    age = get_age()
+    if age:
+        print(f"You are {age} years old and eligible.")
+    else:
+        print("Invalid input. You must be at least 18 years old.")
+if __name__ == "__main__":
+    main()
+
+
+
+
+Objective: To identify and fix errors in a Python program that reads and writes to a file.
+Code3:
+def read_and_write_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            content = file.read()
+        with open(filename, 'w') as file:
+            file.write(content.upper())
+        print(f"File '{filename}' processed successfully.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+def main():
+    filename = "sample.txt"
+    read_and_write_file(filename)
+
+if __name__ == "__main__":
+    main()
+
+submit the corrected code with comments explaining the issues they found and the solutions they implemented.
+
+
+Corrected Code:
+
+Your code is mostly correct for reading a file, converting its content to uppercase, and writing it back to the same file. However, there's one potential issue: if the file specified by filename does not exist when you try to read it, it will raise a ‘FileNotFoundError’. To handle this gracefully, you can check if the file exists before attempting to read it. Here's the modified code:
+"""
+import os
+
+def read_and_write_file(filename):
+    try:
+        if os.path.exists(filename):  # Check if the file exists
+            with open(filename, 'r') as file:
+                content = file.read()
+            with open(filename, 'w') as file:
+                file`.write(content.upper())
+            print(f"File '{filename}' processed successfully.")
+        else:
+            print(f"File '{filename}' does not exist.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+def main():
+    filename = "sample.txt"
+    read_and_write_file(filename)
+
+if __name__ == "__main__":
+    main()
+
+"""In this modified code, we first use os.path.exists(filename) to check if the file exists before attempting to read it. If the file doesn't exist, it will print a message indicating that the file is missing. This change adds robustness to your code.
+
+
+
+
+
+
+
+
+
+Code4:
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+    
+    merge_sort(left)
+    merge_sort(right)
+    
+    i = j = k = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            arr[k] = left[i]
+            i += 1
+        else:
+            arr[k] = right[j]
+            j += 1
+        k += 1
+    
+    while i < len(left):
+        arr[k] = left[i]
+        i += 1
+        k += 1
+    
+    while j < len(right):
+        arr[k] = right[j]
+        j += 1
+        k += 1
+
+arr = [38, 27, 43, 3, 9, 82, 10]
+merge_sort(arr)
+print(f"The sorted array is: {arr}")
+
+The code aims to implement the merge sort algorithm. However, there is a bug in the code. When the student runs this code, it will raise an error or produce incorrect output. The student's task is to identify and correct the bug.
+
+
+
+Corrected Code:
+Your provided code is a recursive implementation of the Merge Sort algorithm to sort a list (`arr`). The code breaks the list into smaller halves until they become individual elements, and then it merges them in sorted order. The implementation appears correct; however, it lacks a `return` statement in the `merge_sort` function to return the sorted result.
+
+Here's the corrected code with the `return` statement included and some minor adjustments for clarity:
+"""
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+    
+    left = merge_sort(left)  # Recursive call
+    right = merge_sort(right)  # Recursive call
+    
+    i = j = k = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            arr[k] = left[i]
+            i += 1
+        else:
+            arr[k] = right[j]
+            j += 1
+        k += 1
+    
+    while i < len(left):
+        arr[k] = left[i]
+        i += 1
+        k += 1
+    
+    while j < len(right):
+        arr[k] = right[j]
+        j += 1
+        k += 1
+    
+    return arr  # Return the sorted array
+
+arr = [38, 27, 43, 3, 9, 82, 10]
+sorted_arr = merge_sort(arr.copy())  # Make a copy to keep the original array unchanged
+print(f"The sorted array is: {sorted_arr}")
+
+
+"""This code should correctly sort the ‘arr’  list using the Merge Sort algorithm and return the sorted result."""
