@@ -1,0 +1,53 @@
+# Step 1: Define Functions
+def display_list(view_list):
+    if not view_list:
+        print("Your view list is empty.")
+    else:
+        print("view list:")
+        for index, items in enumerate(view_list, start=1):
+            print(f"{index}. {items}")
+
+def add_items(view_list, items):
+    view_list.append(items)
+    print(f"Items '{items}' added to the view list.")
+
+def remove_items(view_list, items_index):
+    if 1 <= items_index <= len(view_list):
+        removed_items = view_list.pop(items_index - 1)
+        print(f"Items '{removed_items}' removed from the view list.")
+    else:
+        print("Invalid items index. Please enter a valid index.")
+
+        
+# Step 2: Implement the Main Function
+def main():
+    view_list = []
+
+    while True:
+        print("\nMenu:")
+        print("1. Display View List")
+        print("2. Add Items")
+        print("3. Remove Items")
+        print("4. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            display_list(view_list)
+        elif choice == '2':
+            items = input("Enter the items: ")
+            add_items(view_list, items)
+        elif choice == '3':
+            try:
+                items_index = int(input("Enter the items index to remove: "))
+                remove_items(view_list, items_index)
+            except ValueError:
+                print("Invalid input. Please enter a valid items index (a number).")
+        elif choice == '4':
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+# Step 4: Run and Debug
+if __name__ == "__main__":
+    main()
