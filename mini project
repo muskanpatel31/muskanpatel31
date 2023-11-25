@@ -1,0 +1,70 @@
+class TodoList: 
+#defining a class called TodoList
+    def __init__(self):
+        self.tasks = []     #defing list as tasks
+
+    def add_task(self, task):
+        self.tasks.append({"task": task, "completed": False})    #using Dictionaries key value pairs
+        print(f"Task '{task}' added successfully.")
+
+    def delete_task(self, task):
+        for t in self.tasks:
+            if t["task"] == task:   #using list here to remove items to list
+                self.tasks.remove(t)
+                print(f"Task '{task}' deleted successfully.")
+                return
+        print(f"Task '{task}' not found.")
+
+    def display_tasks(self):
+        if not self.tasks:
+            print("No tasks in the to-do list.")
+        else:
+            print("To-Do List:")
+            for i, task in enumerate(self.tasks, 1):    #starts iteration here
+                status = "Completed" if task["completed"] else "Not Completed"
+                print(f"{i}. {task['task']} - {status}")
+
+    def mark_as_complete(self, task):
+        for t in self.tasks:
+            if t["task"] == task:
+                t["completed"] = True
+                print(f"Task '{task}' marked as complete.")
+                return
+        print(f"Task '{task}' not found.")
+        #defining end here
+
+#main starts here
+def main():
+    todo_list = TodoList() 
+    #using the class TodoList
+
+    while True:   
+        #using while loop
+        print("\nOptions:")
+        print("1. Add Task")
+        print("2. Delete Task")
+        print("3. Display Tasks")
+        print("4. Mark Task as Complete")
+        print("5. Quit")
+
+        choice = input("Enter your choice (1-5): ")
+
+        if choice == "1":
+            task = input("Enter the task: ")
+            todo_list.add_task(task)
+        elif choice == "2":
+            task = input("Enter the task to delete: ")
+            todo_list.delete_task(task)
+        elif choice == "3":
+            todo_list.display_tasks()
+        elif choice == "4":
+            task = input("Enter the task to mark as complete: ")
+            todo_list.mark_as_complete(task)
+        elif choice == "5":
+            print("Quitting the to-do list application. Goodbye!")     #all choices are end here
+        else:      #by default it comes here when all are false...
+            print("Invalid choice. Please enter a number between 1 and 5.")
+
+
+if __name__ == "__main__":
+   main()
